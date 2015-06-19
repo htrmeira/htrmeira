@@ -23,10 +23,34 @@
 
       </header>
       <section>
-        <h3>
-<a id="welcome-to-heitor-meira-personal-web-page" class="anchor" href="#welcome-to-heitor-meira-personal-web-page" aria-hidden="true"><span class="octicon octicon-link"></span></a>Welcome to Heitor Meira personal web page.</h3>
+        <p>How to Create and Attach a New Disk to a KVM Instance</p>
 
-<p>This page is under construction. =)</p>
+<p>qemu-img create -f raw maas-storage.img 50G</p>
+
+<p>Then, edit the .xml file of the instance:</p>
+
+<p>virsh edit maas</p>
+
+<p>Create a new disk entry:</p>
+
+<pre><code>&lt;disk type='file' device='disk'&gt;
+  &lt;driver name='qemu' type='raw'/&gt;
+  &lt;source file='/local/virtual-machines/storage/maas-storage.img'/&gt;
+  &lt;target dev='vdb' bus='virtio'/&gt;
+  &lt;address type='pci' domain='0x0000' bus='0x00' slot='0x07' function='0x0'/&gt;
+&lt;/disk&gt;
+</code></pre>
+
+<p>Note that : , the dev must be unique on the file.
+The same goes to the slot:
+</p> 
+
+<p>Then, restart the virtual machine.</p>
+
+<p>To format the new disk, please look at: 
+<a href="http://tldp.org/HOWTO/Partition/fdisk_partitioning.html">http://tldp.org/HOWTO/Partition/fdisk_partitioning.html</a></p>
+
+<p><a href="http://www.linux-kvm.org/page/HOWTO1">http://www.linux-kvm.org/page/HOWTO1</a></p>
       </section>
       <footer>
         <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
